@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asymmetric Network Simulator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-left">
+      <h1 class="title">Asymmetric Network Simulator</h1>
+    </div>
+    <div class="header-center">
+      <span class="label-sm">Presets:</span>
+      <button class="btn btn-preset" data-preset="adsl">ADSL Overload</button>
+      <button class="btn btn-preset" data-preset="san">SAN Bottleneck</button>
+      <button class="btn btn-preset" data-preset="symmetric">Symmetric LAN</button>
+      <button class="btn btn-preset" data-preset="idle">Idle</button>
+    </div>
+    <div class="header-right">
+      <div class="playback-group">
+        <button class="btn btn-action" id="btn-play">&#9654; Play</button>
+        <button class="btn btn-action active" id="btn-pause">&#9646;&#9646; Pause</button>
+        <button class="btn btn-action" id="btn-step">&#9197; Step</button>
+        <button class="btn btn-action" id="btn-reset">&#8635; Reset</button>
+      </div>
+      <div class="speed-group">
+        <span class="label-sm">Speed:</span>
+        <button class="btn btn-speed active" data-speed="1">1x</button>
+        <button class="btn btn-speed" data-speed="2">2x</button>
+        <button class="btn btn-speed" data-speed="5">5x</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main area ────────────────────────────────────────────── -->
+  <div class="main-area">
+    <div class="canvas-wrapper">
+      <div id="canvas-container"></div>
+    </div>
+    <div class="charts-panel">
+      <div class="chart-block">
+        <div class="chart-title">
+          <span class="dot dot-blue"></span>Downlink — Server &#8594; Client
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="chart-downlink"></canvas>
+        </div>
+      </div>
+      <div class="chart-block">
+        <div class="chart-title">
+          <span class="dot dot-orange"></span>Uplink — Client &#8594; Server
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="chart-uplink"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Controls ─────────────────────────────────────────────── -->
+  <div class="controls-panel">
+    <div class="ctrl-group">
+      <div class="ctrl-group-title">Traffic Generation</div>
+      <div class="slider-row">
+        <label>Server &#8594; Client Rate</label>
+        <input type="range" id="sl-srv-send" min="0" max="100" value="50">
+        <span class="sv" id="sv-srv-send">200 Mbps</span>
+      </div>
+      <div class="slider-row">
+        <label>Client &#8594; Server Rate</label>
+        <input type="range" id="sl-cli-send" min="0" max="100" value="22">
+        <span class="sv" id="sv-cli-send">5 Mbps</span>
+      </div>
+    </div>
+    <div class="ctrl-group">
+      <div class="ctrl-group-title">Link Bandwidth</div>
+      <div class="slider-row">
+        <label>Downlink Max BW</label>
+        <input type="range" id="sl-dl-bw" min="0" max="100" value="60">
+        <span class="sv" id="sv-dl-bw">100 Mbps</span>
+      </div>
+      <div class="slider-row">
+        <label>Uplink Max BW</label>
+        <input type="range" id="sl-ul-bw" min="0" max="100" value="40">
+        <span class="sv" id="sv-ul-bw">10 Mbps</span>
+      </div>
+    </div>
+    <div class="ctrl-group">
+      <div class="ctrl-group-title">Buffers &amp; Latency</div>
+      <div class="slider-row">
+        <label>Server Tx Buffer</label>
+        <input type="range" id="sl-srv-buf" min="0" max="100" value="50">
+        <span class="sv" id="sv-srv-buf">512 KB</span>
+      </div>
+      <div class="slider-row">
+        <label>Client Tx Buffer</label>
+        <input type="range" id="sl-cli-buf" min="0" max="100" value="50">
+        <span class="sv" id="sv-cli-buf">64 KB</span>
+      </div>
+      <div class="slider-row">
+        <label>Link Latency</label>
+        <input type="range" id="sl-latency" min="1" max="200" value="20">
+        <span class="sv" id="sv-latency">20 ms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Status bar ───────────────────────────────────────────── -->
+  <div class="status-bar">
+    <span id="st-time">Time: 0.0s</span>
+    <span id="st-dl">&#8595; Downlink: — Mbps&nbsp;|&nbsp;Drops: —</span>
+    <span id="st-ul">&#8593; Uplink: — Mbps&nbsp;|&nbsp;Drops: —</span>
+    <span id="st-buf">Buffers: S-TX 0%&nbsp;|&nbsp;C-TX 0%</span>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="js/simulation.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
